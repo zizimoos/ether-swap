@@ -1,6 +1,10 @@
 # Truffle
 
 ```zsh
+Ganache CLI v6.12.2 (ganache-core: 2.13.2)
+```
+
+```zsh
 > truffle migrate --reset
 > truffle console
 
@@ -16,15 +20,65 @@ balance.toString()
 ```
 
 ```zsh
-Ganache CLI v6.12.2 (ganache-core: 2.13.2)
+truffle migrate --network goerli --reset
+```
 
-Available Accounts
-==================
-(0) 0x538acd9ee0abCD46581Be3B8dD60038458a30b6D (100 ETH)
-(1) 0xd38b1Fa362d0Ba1E7D7E9d0EceC19B282d0CAE31 (100 ETH)
+```zsh
+Starting migrations...
+======================
+> Network name:    'goerli'
+> Network id:      5
+> Block gas limit: 30000000 (0x1c9c380)
 
-Private Keys
-==================
-(0) 0x3d784528081c999dbc3d4ec904cc3ccbc09fb857a927ee5c08608eb4b44a9a3b
-(1) 0xd04d1c4a18a1603a3db69c067fef09665ebf6ec358958b5f868e784a746dd9dc
+
+1_deploy_contract.js
+====================
+
+   Deploying 'Token'
+   -----------------
+   > transaction hash:    0xc3d16b7f13e39c1942531cb14291e0145d2bd360f80b76a8c37e880c4b7b8312
+   > Blocks: 1            Seconds: 13
+   > contract address:    0xe9568F4F42f44C6CFD68d3Ff26e405CF6BcDfBf1
+   > block number:        7698216
+   > block timestamp:     1664711844
+   > account:             0xB2b92a995Ea5e9542a36f573F01EbABCBAcCAb62
+   > balance:             61.428448132893709342
+   > gas used:            864436 (0xd30b4)
+   > gas price:           2.500000009 gwei
+   > value sent:          0 ETH
+   > total cost:          0.002161090007779924 ETH
+
+   Pausing for 2 confirmations...
+
+   -------------------------------
+   > confirmation number: 1 (block: 7698217)
+   > confirmation number: 2 (block: 7698218)
+
+   Deploying 'EthSwap'
+   -------------------
+   > transaction hash:    0x00cca992d67f9c51507b30250b5419bb1767d39fcb6b83ac8efb424faad7abcb
+   > Blocks: 2            Seconds: 21
+   > contract address:    0x41b580aFF14203b5fB441AB0092923393E4bE6f8
+   > block number:        7698220
+   > block timestamp:     1664711892
+   > account:             0xB2b92a995Ea5e9542a36f573F01EbABCBAcCAb62
+   > balance:             61.426659455386554632
+   > gas used:            715471 (0xaeacf)
+   > gas price:           2.50000001 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00178867750715471 ETH
+
+   Pausing for 2 confirmations...
+
+   -------------------------------
+   > confirmation number: 1 (block: 7698221)
+   > confirmation number: 2 (block: 7698222)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.003949767514934634 ETH
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.003949767514934634 ETH
 ```
