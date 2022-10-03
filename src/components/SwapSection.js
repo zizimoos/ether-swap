@@ -86,6 +86,7 @@ function SwapSection({
   return (
     <Container>
       <InfoSection
+        web3={web3}
         userTokenBalance={userTokenBalance}
         userEthBalance={userEthBalance}
         swapTokenBalance={swapTokenBalance}
@@ -115,6 +116,7 @@ function SwapSection({
           userAccount={userAccount}
           userTokenBalance={userTokenBalance}
           userEthBalance={userEthBalance}
+          walletHandler={walletHandler}
         ></SellForm>
       ) : (
         <BuyForm
@@ -123,6 +125,7 @@ function SwapSection({
           userAccount={userAccount}
           userTokenBalance={userTokenBalance}
           userEthBalance={userEthBalance}
+          walletHandler={walletHandler}
         ></BuyForm>
       )}
       <Section>{message}</Section>

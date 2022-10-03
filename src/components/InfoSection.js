@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -24,21 +24,20 @@ const Section = styled.div`
 `;
 
 function InfoSection({
+  web3,
   userTokenBalance,
   userEthBalance,
   swapTokenBalance,
   swapEtherBalance,
 }) {
+  useEffect(() => {}, [web3, swapEtherBalance]);
   return (
     <Container>
       <SectionInfo>
-        <Section>SWAP CONTRACT Ethers : {swapEtherBalance}</Section>
         <Section>
-          SWAP CONTRACT Tokens : {swapTokenBalance}
-          {/* SWAP CONTRACT Tokens : {web3.utils.fromWei(swapTokenBalance, "ether")} */}
+          SWAP CONTRACT Ethers : {swapEtherBalance / 1000000000000000000}
         </Section>
-        <Section>USER Ether : {userEthBalance}</Section>
-        <Section>USER SWC Tokens : {userTokenBalance}</Section>
+        <Section>SWAP CONTRACT Tokens : {swapTokenBalance}</Section>
       </SectionInfo>
     </Container>
   );

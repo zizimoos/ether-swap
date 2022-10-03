@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
+const Container = styled.div`
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
 const WrapInfoBox = styled.div`
   width: 600px;
   margin-bottom: 40px;
@@ -8,14 +18,14 @@ const WrapInfoBox = styled.div`
   justify-content: center;
   align-items: center;
   input {
-    width: 500px;
+    width: 600px;
     height: 40px;
     padding-left: 10px;
   }
 `;
 
 const InOutBox = styled.div`
-  width: 500px;
+  width: 600px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
@@ -24,7 +34,7 @@ const InOutBox = styled.div`
 `;
 
 const RateInfoBox = styled.div`
-  width: 500px;
+  width: 600px;
   margin: 0 auto;
   margin-bottom: 10px;
   display: flex;
@@ -34,12 +44,12 @@ const RateInfoBox = styled.div`
 `;
 
 const ButtonBox = styled.div`
-  width: 500px;
+  width: 600px;
   margin: 0 auto;
   justify-content: flex-start;
   align-items: center;
   button {
-    width: 500px;
+    width: 600px;
     height: 40px;
     border-radius: 10px;
     border: none;
@@ -55,8 +65,9 @@ function SellForm({
   userTokenBalance,
   userEthBalance,
   userAccount,
+  walletHandler,
 }) {
-  const [inputValue, setInputValue] = useState();
+  const [inputValue, setInputValue] = useState(0);
   // eslint-disable-next-line
   const [Loading, setLoading] = useState(false);
   const sellTokens = (tokenAmount) => {
@@ -68,18 +79,18 @@ function SellForm({
       .sellTokens(tokenAmount)
       .send({ from: userAccount })
       .on("transactionHash", (hash) => setLoading(false));
+    walletHandler();
   };
   useEffect(() => {}, [tokenApi]);
 
   return (
     <>
-      <div>
+      <Container>
         <WrapInfoBox>
           <InOutBox>
-            <div>INPUT</div>
+            <div>SEND SCW</div>
             <div>
-              Balance : {userTokenBalance}
-              TOKENS
+              {userTokenBalance / 1000000000000000000} TOKENS in your account
             </div>
           </InOutBox>
           <input
@@ -91,10 +102,9 @@ function SellForm({
         </WrapInfoBox>
         <WrapInfoBox>
           <InOutBox>
-            <div>OUTPUT</div>
+            <div>RECEIVE ETHER</div>
             <div>
-              Balance :{userEthBalance}
-              ETH
+              {Math.floor(userEthBalance * 100000) / 100000} ETH in your account
             </div>
           </InOutBox>
           <input placeholder="0" value={inputValue / 100} readOnly></input>
@@ -114,10 +124,10 @@ function SellForm({
               sellTokens(tokenAmount);
             }}
           >
-            SWAP SELL TOKENS
+            CLICK ! SELL TOKENS
           </button>
         </ButtonBox>
-      </div>
+      </Container>
     </>
   );
 }

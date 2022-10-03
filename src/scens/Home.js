@@ -70,7 +70,8 @@ function Home(props) {
             address: "0xe9568f4f42f44c6cfd68d3ff26e405cf6bcdfbf1", // The address that the token is at.
             symbol: "SCW", // A ticker symbol or shorthand, up to 5 chars.
             decimals: 18, // The number of decimals in the token
-            image: "http://placekitten.com/200/300", // A string url of the token logo
+            image: "https://iili.io/L8t4cl.jpg", // A string url of the token logo
+            //https://freeimage.host/i/beauty-07.L8t4cl
           },
         },
       });
