@@ -1,6 +1,6 @@
 import React from "react";
 import Identicon from "react-identicons";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const Container = styled.div`
   width: 400px;
@@ -41,15 +41,30 @@ const Title = styled.div`
   font-size: 20px;
   font-weight: 400;
 `;
+const AniLogo = keyframes`
+  from
+  {
+    transform: rotate(0deg);
+  }
+  to
+  {
+    transform: rotate(3600deg);
+  }
+`;
+const ImageWrapper = styled.div`
+  animation: ${AniLogo} 20s linear infinite;
+`;
 function NaviBar({ showAccount, walletHandler, userAccount }) {
   return (
     <Container>
       <Title> SWAP SCW </Title>
       <SectionNavi>
-        <img
-          src="https://img.icons8.com/bubbles/50/000000/earth-planet.png"
-          alt="logo"
-        ></img>
+        <ImageWrapper>
+          <img
+            src="https://img.icons8.com/bubbles/50/000000/earth-planet.png"
+            alt="logo"
+          ></img>
+        </ImageWrapper>
 
         {showAccount ? (
           <div>
