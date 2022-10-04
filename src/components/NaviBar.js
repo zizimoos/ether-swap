@@ -37,7 +37,7 @@ const WalletButton = styled.button`
 `;
 const Title = styled.div`
   margin-top: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
   font-size: 20px;
   font-weight: 400;
 `;
@@ -58,6 +58,9 @@ function NaviBar({ showAccount, walletHandler, userAccount }) {
   return (
     <Container>
       <Title> SWAP SCW </Title>
+      <span style={{ color: "white", marginBottom: "10px" }}>
+        goerli test net
+      </span>
       <SectionNavi>
         <ImageWrapper>
           <img

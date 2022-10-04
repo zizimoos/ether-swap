@@ -24,6 +24,7 @@ const Container = styled.div`
 const Button = styled.button`
   align-items: flex-end;
   border: 0px;
+  margin-top: 10px;
   color: white;
   background-color: transparent;
   cursor: pointer;
@@ -122,9 +123,11 @@ function Home(props) {
         userAccount={userAccount}
       ></NaviBar>
       {wasAdded ? null : (
-        <Button onClick={WatchAsset}>
-          SCW 토큰을 지갑에 등록하시겠습니까?
-        </Button>
+        <>
+          <Button onClick={WatchAsset}>
+            SCW 토큰을 지갑에 등록하시겠습니까?
+          </Button>
+        </>
       )}
       <SwapSection
         web3={web3}
