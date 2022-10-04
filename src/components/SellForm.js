@@ -1,61 +1,76 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const Container = styled.div`
-  width: 600px;
+  width: 400px;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 0px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  color: ${(props) => props.theme.colors.secondary};
 `;
-
 const WrapInfoBox = styled.div`
-  width: 600px;
-  margin-bottom: 40px;
+  width: 400px;
+  margin-bottom: 20px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 14px;
   input {
-    width: 600px;
+    width: 400px;
     height: 40px;
     padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid ${(props) => props.theme.colors.primary};
   }
 `;
-
 const InOutBox = styled.div`
-  width: 600px;
+  width: 400px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `;
-
 const RateInfoBox = styled.div`
-  width: 600px;
+  width: 400px;
   margin: 0 auto;
+  margin-top: 20px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `;
-
 const ButtonBox = styled.div`
-  width: 600px;
+  width: 400px;
   margin: 0 auto;
   justify-content: flex-start;
   align-items: center;
-  button {
-    width: 600px;
-    height: 40px;
-    border-radius: 10px;
-    border: none;
+`;
+const SellButton = styled.button`
+  width: 400px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: dodgerblue;
+  cursor: pointer;
+`;
+const LoadingAnimation = keyframes`
+  from {
     color: white;
-    background-color: dodgerblue;
   }
+
+  to {
+    color: blue;
+  }
+`;
+const LoadingSection = styled.div`
+  margin-bottom: 20px;
+  animation: ${LoadingAnimation} 1s linear infinite;
 `;
 
 function SellForm({
@@ -66,25 +81,29 @@ function SellForm({
   userEthBalance,
   userAccount,
   walletHandler,
+  loadBlockchainData,
 }) {
   const [inputValue, setInputValue] = useState(0);
   // eslint-disable-next-line
   const [Loading, setLoading] = useState(false);
-  const sellTokens = (tokenAmount) => {
-    setLoading(true);
-    tokenApi.methods
+  const sellTokens = async (tokenAmount) => {
+    await tokenApi.methods
       .approve("0x41b580aFF14203b5fB441AB0092923393E4bE6f8", tokenAmount)
       .send({ from: userAccount });
     swapApi.methods
       .sellTokens(tokenAmount)
       .send({ from: userAccount })
-      .on("transactionHash", (hash) => setLoading(false));
-    walletHandler();
+      .on("transactionHash", (hash) => {})
+      .then(() => {
+        loadBlockchainData();
+        setLoading(false);
+      });
   };
   useEffect(() => {}, [tokenApi]);
 
   return (
     <>
+      <LoadingSection>{Loading ? "LOADING..." : null}</LoadingSection>
       <Container>
         <WrapInfoBox>
           <InOutBox>
@@ -104,7 +123,10 @@ function SellForm({
           <InOutBox>
             <div>RECEIVE ETHER</div>
             <div>
-              {Math.floor(userEthBalance * 100000) / 100000} ETH in your account
+              {userEthBalance
+                ? Math.floor(userEthBalance * 100000) / 100000
+                : 0}
+              ETH in your account
             </div>
           </InOutBox>
           <input placeholder="0" value={inputValue / 100} readOnly></input>
@@ -114,18 +136,17 @@ function SellForm({
           <div>100 Tokens = 1 ETH</div>
         </RateInfoBox>
         <ButtonBox>
-          <button
+          <SellButton
             onClick={(e) => {
-              console.log("purchaing...");
               let tokenAmount;
               tokenAmount = String(inputValue);
               tokenAmount = web3.utils.toWei(tokenAmount, "ether");
-              console.log(tokenAmount);
               sellTokens(tokenAmount);
+              setLoading(true);
             }}
           >
             CLICK ! SELL TOKENS
-          </button>
+          </SellButton>
         </ButtonBox>
       </Container>
     </>

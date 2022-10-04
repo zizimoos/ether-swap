@@ -2,17 +2,18 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 600px;
+  width: 400px;
   margin: 0 auto;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  color: ${(props) => props.theme.colors.secondary};
 `;
 const SectionInfo = styled.div`
-  width: 600px;
-  margin-bottom: 20px;
+  width: 400px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

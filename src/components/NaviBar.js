@@ -3,12 +3,13 @@ import Identicon from "react-identicons";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 600px;
+  width: 400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  color: ${(props) => props.theme.colors.secondary};
 `;
 const SectionNavi = styled(Container)`
   height: 50px;
@@ -30,10 +31,10 @@ function NaviBar({ showAccount, walletHandler, userAccount }) {
   return (
     <Container>
       <SectionNavi>
-        <div>ETHER SWAP SCW </div>
+        <div> SWAP SCW </div>
         {showAccount ? (
           <div>
-            <span>{userAccount}</span>
+            <span style={{ marginRight: "10px" }}>{String(userAccount)}</span>
             <Identicon
               string={`${userAccount}+randomness+0-`}
               size="25"

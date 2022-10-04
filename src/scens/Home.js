@@ -9,15 +9,25 @@ import SwapSection from "../components/SwapSection";
 import NaviBar from "../components/NaviBar";
 
 const Container = styled.div`
-  width: 600px;
+  width: 480px;
   margin: 0 auto;
+  margin-top: 50px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  button {
-    align-items: flex-end;
-  }
+  border-radius: 10px;
+
+  background-color: ${(props) => props.theme.colors.primary};
+`;
+const Button = styled.button`
+  align-items: flex-end;
+  border: 0px;
+  color: white;
+  background-color: transparent;
+  cursor: pointer;
+  /* background-color: ${(props) => props.theme.colors.secondary}; */
 `;
 const Section = styled.div`
   margin-bottom: 10px;
@@ -112,9 +122,9 @@ function Home(props) {
         userAccount={userAccount}
       ></NaviBar>
       {wasAdded ? null : (
-        <button onClick={WatchAsset}>
+        <Button onClick={WatchAsset}>
           SCW 토큰을 지갑에 등록하시겠습니까?
-        </button>
+        </Button>
       )}
       <SwapSection
         web3={web3}

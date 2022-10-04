@@ -1,29 +1,33 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const Container = styled.div`
-  width: 600px;
+  width: 400px;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 0px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  color: ${(props) => props.theme.colors.secondary};
 `;
 const WrapInfoBox = styled.div`
-  width: 600px;
-  margin-bottom: 40px;
+  width: 400px;
+  margin-bottom: 20px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 14px;
   input {
-    width: 600px;
+    width: 400px;
     height: 40px;
     padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid ${(props) => props.theme.colors.primary};
   }
 `;
 const InOutBox = styled.div`
-  width: 600px;
+  width: 400px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
@@ -31,8 +35,9 @@ const InOutBox = styled.div`
   align-items: center;
 `;
 const RateInfoBox = styled.div`
-  width: 600px;
+  width: 400px;
   margin: 0 auto;
+  margin-top: 20px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: row;
@@ -40,18 +45,32 @@ const RateInfoBox = styled.div`
   align-items: center;
 `;
 const ButtonBox = styled.div`
-  width: 600px;
+  width: 400px;
   margin: 0 auto;
   justify-content: flex-start;
   align-items: center;
-  button {
-    width: 600px;
-    height: 40px;
-    border-radius: 10px;
-    border: none;
+`;
+const BuyButton = styled.button`
+  width: 400px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: hotpink;
+  cursor: pointer;
+`;
+const LoadingAnimation = keyframes`
+  from {
     color: white;
-    background-color: hotpink;
   }
+
+  to {
+    color: blue;
+  }
+`;
+const LoadingSection = styled.div`
+  margin-bottom: 20px;
+  animation: ${LoadingAnimation} 1s linear infinite;
 `;
 
 function BuyForm({
@@ -61,38 +80,45 @@ function BuyForm({
   userAccount,
   web3,
   walletHandler,
+  loadBlockchainData,
 }) {
   const [inputValue, setInputValue] = useState(0);
-  const [nuUserEthBalance, setNuUserEthBalance] = useState("0");
+  // const [nuUserEthBalance, setNuUserEthBalance] = useState("0");
   // eslint-disable-next-line
   const [Loading, setLoading] = useState(false);
 
-  const buyTokens = (etherAmount) => {
-    setLoading(true);
-    swapApi.methods
+  const buyTokens = async (etherAmount) => {
+    await swapApi.methods
       .buyTokens()
       .send({
         value: etherAmount,
         from: userAccount,
       })
-      .on("transactionHash", (hash) => setLoading(false));
-    walletHandler();
+      .on("transactionHash", (hash) => {})
+      .then(() => {
+        setLoading(false);
+        loadBlockchainData();
+      });
   };
 
   useEffect(() => {
-    let uEthBalance = Number(userEthBalance);
-    setNuUserEthBalance(uEthBalance);
-  }, [userEthBalance, web3]);
+    // let uEthBalance = Number(userEthBalance);
+    // setNuUserEthBalance(uEthBalance);
+    // eslint-disable-next-line
+  }, [userEthBalance, web3, userTokenBalance]);
 
   return (
     <>
+      <LoadingSection>{Loading ? "LOADING..." : null}</LoadingSection>
       <Container>
         <WrapInfoBox>
           <InOutBox>
             <div>SEND ETHER</div>
             <div>
-              {Math.floor(nuUserEthBalance * 100000) / 100000} ETH in your
-              account
+              {userEthBalance
+                ? Math.floor(userEthBalance * 100000) / 100000
+                : 0}{" "}
+              ETH in your account
             </div>
           </InOutBox>
           <input
@@ -117,18 +143,17 @@ function BuyForm({
           <div>1 ETH = 100 Tokens</div>
         </RateInfoBox>
         <ButtonBox>
-          <button
+          <BuyButton
             onClick={(e) => {
-              console.log("purchaing...");
               let etherAmount;
               etherAmount = String(inputValue);
               etherAmount = web3.utils.toWei(etherAmount, "ether");
-              console.log(etherAmount);
               buyTokens(etherAmount);
+              setLoading(true);
             }}
           >
             CLICK ! BUY TOKENS
-          </button>
+          </BuyButton>
         </ButtonBox>
       </Container>
     </>

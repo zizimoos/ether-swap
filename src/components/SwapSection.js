@@ -6,7 +6,7 @@ import BuyForm from "./BuyForm";
 import SellForm from "./SellForm";
 
 const Container = styled.div`
-  width: 600px;
+  width: 400px;
   margin: 0 auto;
   margin-top: 20px;
   display: flex;
@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const BuySellBox = styled.div`
-  width: 600px;
+  width: 400px;
   margin: 0 auto;
   margin-bottom: 20px;
   display: flex;
@@ -25,7 +25,7 @@ const BuySellBox = styled.div`
   align-items: center;
 `;
 const ExchangeButton = styled.button`
-  width: 200px;
+  width: 150px;
   height: 30px;
   border-radius: 5px;
   border: none;
@@ -95,13 +95,19 @@ function SwapSection({
       <Section>
         <BuySellBox>
           <ExchangeButton
-            onClick={() => setSellForm(false)}
+            onClick={() => {
+              setSellForm(false);
+              loadBlockchainData();
+            }}
             backgroundColor={"hotpink"}
           >
             Buy
           </ExchangeButton>
           <ExchangeButton
-            onClick={() => setSellForm(true)}
+            onClick={() => {
+              setSellForm(true);
+              loadBlockchainData();
+            }}
             backgroundColor={"dodgerblue"}
           >
             Sell
@@ -117,6 +123,7 @@ function SwapSection({
           userTokenBalance={userTokenBalance}
           userEthBalance={userEthBalance}
           walletHandler={walletHandler}
+          loadBlockchainData={loadBlockchainData}
         ></SellForm>
       ) : (
         <BuyForm
@@ -126,6 +133,7 @@ function SwapSection({
           userTokenBalance={userTokenBalance}
           userEthBalance={userEthBalance}
           walletHandler={walletHandler}
+          loadBlockchainData={loadBlockchainData}
         ></BuyForm>
       )}
       <Section>{message}</Section>
