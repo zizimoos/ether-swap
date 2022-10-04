@@ -35,11 +35,22 @@ const WalletButton = styled.button`
   color: #baad98;
   background-color: #48617c;
 `;
+const Title = styled.div`
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 400;
+`;
 function NaviBar({ showAccount, walletHandler, userAccount }) {
   return (
     <Container>
+      <Title> SWAP SCW </Title>
       <SectionNavi>
-        <div> SWAP SCW </div>
+        <img
+          src="https://img.icons8.com/bubbles/50/000000/earth-planet.png"
+          alt="logo"
+        ></img>
+
         {showAccount ? (
           <div>
             <span style={{ marginRight: "10px" }}>{String(userAccount)}</span>
