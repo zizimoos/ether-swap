@@ -108,7 +108,7 @@ function SwapSection({
               setSellForm(true);
               loadBlockchainData();
             }}
-            backgroundColor={"dodgerblue"}
+            backgroundColor={"#8396a7"}
           >
             Sell
           </ExchangeButton>

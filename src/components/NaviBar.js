@@ -27,6 +27,14 @@ const SectionNavi = styled(Container)`
     }
   }
 `;
+const WalletButton = styled.button`
+  width: 150px;
+  height: 25px;
+  border: none;
+  border-radius: 20px;
+  color: #baad98;
+  background-color: #48617c;
+`;
 function NaviBar({ showAccount, walletHandler, userAccount }) {
   return (
     <Container>
@@ -43,7 +51,7 @@ function NaviBar({ showAccount, walletHandler, userAccount }) {
             />
           </div>
         ) : (
-          <button onClick={walletHandler}>CONNECT WALLET</button>
+          <WalletButton onClick={walletHandler}>CONNECT WALLET</WalletButton>
         )}
       </SectionNavi>
     </Container>

@@ -56,7 +56,7 @@ const SellButton = styled.button`
   border-radius: 10px;
   border: none;
   color: white;
-  background-color: dodgerblue;
+  background-color: #8396a7;
   cursor: pointer;
 `;
 const LoadingAnimation = keyframes`
