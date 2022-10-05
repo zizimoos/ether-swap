@@ -30,10 +30,12 @@ const SectionNavi = styled(Container)`
 const WalletButton = styled.button`
   width: 150px;
   height: 25px;
-  border: none;
+  padding: 4px;
+  border: 2px solid;
   border-radius: 20px;
   color: #baad98;
   background-color: #48617c;
+  cursor: pointer;
 `;
 const Title = styled.div`
   margin-top: 20px;
@@ -54,13 +56,27 @@ const AniLogo = keyframes`
 const ImageWrapper = styled.div`
   animation: ${AniLogo} 20s linear infinite;
 `;
+const GoPow = styled.span`
+  margin-top: 4px;
+  a {
+    text-decoration: none;
+    color: white;
+  }
+`;
+
 function NaviBar({ showAccount, walletHandler, userAccount }) {
   return (
     <Container>
       <Title> SWAP SCW </Title>
-      <span style={{ color: "white", marginBottom: "10px" }}>
-        goerli test net
-      </span>
+      <GoPow style={{ color: "white", marginBottom: "10px" }}>
+        <a
+          href="https://goerli-faucet.pk910.de/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Click! to get goerli ETH
+        </a>
+      </GoPow>
       <SectionNavi>
         <ImageWrapper>
           <img
